@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/StockXpert/static/css/main.a558837a.css",
+    "main.js": "/StockXpert/static/js/main.46311992.js",
+    "index.html": "/StockXpert/index.html",
+    "main.a558837a.css.map": "/StockXpert/static/css/main.a558837a.css.map",
+    "main.46311992.js.map": "/StockXpert/static/js/main.46311992.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a558837a.css",
+    "static/js/main.46311992.js"
+  ]
+}
