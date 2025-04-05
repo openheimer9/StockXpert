@@ -32,7 +32,9 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
 
 // API base URL - change this when deploying
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = typeof process.env !== 'undefined' && process.env.REACT_APP_API_URL 
+  ? process.env.REACT_APP_API_URL 
+  : 'https://back-end-three-ivory.vercel.app';
 
 // TODO: Add chart visualization
 // TODO: Add watchlist functionality

@@ -19,7 +19,9 @@ import ShowChartIcon from '@mui/icons-material/ShowChart';
 import axios from 'axios';
 
 // API base URL - change this when deploying
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_BASE_URL = typeof process.env !== 'undefined' && process.env.REACT_APP_API_URL 
+  ? process.env.REACT_APP_API_URL 
+  : 'https://back-end-three-ivory.vercel.app';
 
 const MarketOverview = () => {
   const [marketData, setMarketData] = useState([]);
@@ -35,8 +37,11 @@ const MarketOverview = () => {
       console.log(`Attempting to fetch from: ${API_BASE_URL}/api/market/overview`);
       
       // Add a timestamp to prevent caching issues
-      const response = await axios.get(`${API_BASE_URL}/api/market/overview?t=${new Date().getTime()}`, {
-        timeout: 10000, // 10 second timeout
+      const apiUrl = `${API_BASE_URL}/api/market/overview?t=${new Date().getTime()}`;
+      console.log("Full API URL:", apiUrl);
+      
+      const response = await axios.get(apiUrl, {
+        timeout: 15000, // 15 second timeout
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
