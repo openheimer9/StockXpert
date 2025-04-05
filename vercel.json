@@ -1,0 +1,22 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "s-maxage=1, stale-while-revalidate" }
+      ]
+    }
+  ],
+  "github": {
+    "silent": true
+  },
+  "env": {
+    "REACT_APP_API_URL": "https://back-end-three-ivory.vercel.app"
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "build",
+  "framework": "create-react-app"
+} 

@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/StockXpert/static/css/main.a558837a.css",
-    "main.js": "/StockXpert/static/js/main.adabfa79.js",
-    "index.html": "/StockXpert/index.html",
-    "main.a558837a.css.map": "/StockXpert/static/css/main.a558837a.css.map",
-    "main.adabfa79.js.map": "/StockXpert/static/js/main.adabfa79.js.map"
+    "main.css": "/static/css/main.a558837a.css",
+    "main.js": "/static/js/main.648e2eea.js",
+    "index.html": "/index.html",
+    "main.a558837a.css.map": "/static/css/main.a558837a.css.map",
+    "main.648e2eea.js.map": "/static/js/main.648e2eea.js.map"
   },
   "entrypoints": [
     "static/css/main.a558837a.css",
-    "static/js/main.adabfa79.js"
+    "static/js/main.648e2eea.js"
   ]
 }

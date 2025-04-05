@@ -1,6 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './index.css';
 
@@ -9,13 +9,13 @@ console.log("React starting initialization...");
 console.log("Root element:", document.getElementById('root'));
 
 try {
-  ReactDOM.render(
+  const root = ReactDOM.createRoot(document.getElementById('root'));
+  root.render(
     <React.StrictMode>
-      <HashRouter>
+      <BrowserRouter>
         <App />
-      </HashRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
+      </BrowserRouter>
+    </React.StrictMode>
   );
   console.log("React initialization successful");
 } catch (error) {
