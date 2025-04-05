@@ -25,17 +25,43 @@ const MarketOverview = () => {
   const [marketData, setMarketData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [retryCount, setRetryCount] = useState(0);
 
   const fetchMarketData = async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`${API_BASE_URL}/api/market/overview`);
-      console.log('Market data:', response.data);
+      
+      console.log(`Attempting to fetch from: ${API_BASE_URL}/api/market/overview`);
+      
+      // Add a timestamp to prevent caching issues
+      const response = await axios.get(`${API_BASE_URL}/api/market/overview?t=${new Date().getTime()}`, {
+        timeout: 10000, // 10 second timeout
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('Market data response:', response);
       setMarketData(response.data);
     } catch (err) {
       console.error('Error fetching market data:', err);
-      setError(`Failed to fetch market data: ${err.message || 'Unknown error'}`);
+      
+      // More detailed error message
+      let errorMessage = 'Failed to fetch market data';
+      if (err.message) {
+        errorMessage += `: ${err.message}`;
+      }
+      if (err.response) {
+        errorMessage += ` (Status: ${err.response.status})`;
+      }
+      if (!navigator.onLine) {
+        errorMessage = 'No internet connection. Please check your network.';
+      }
+      
+      setError(errorMessage);
+      
       // Use mock data as fallback in case of error
       setMarketData([
         { symbol: '^GSPC', name: 'S&P 500', price: null, change: null, changePercent: null, error: true },
@@ -47,9 +73,23 @@ const MarketOverview = () => {
     }
   };
 
+  // Auto-retry on mount if needed
   useEffect(() => {
     fetchMarketData();
-  }, []);
+    
+    // Setup auto-retry with increasing delay
+    if (retryCount < 3) {
+      const timer = setTimeout(() => {
+        if (error) {
+          console.log(`Auto-retry attempt ${retryCount + 1}...`);
+          setRetryCount(prev => prev + 1);
+          fetchMarketData();
+        }
+      }, 3000 * (retryCount + 1)); // 3s, 6s, 9s delays
+      
+      return () => clearTimeout(timer);
+    }
+  }, [retryCount]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getIndexName = (symbol) => {
     switch (symbol) {
